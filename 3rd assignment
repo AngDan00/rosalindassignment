@@ -1,1 +1,7 @@
-
+1) fibonacci
+def fib(n):
+    prev,nex=1,1
+    for i in range(n-1):
+        prev,nex=prev,prev+nex
+    return nex
+ 2)
