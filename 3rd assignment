@@ -5,7 +5,7 @@ def fib(n):
         prev,nex=prev,prev+nex
     return nex
  
- 2)insertion sort
+ 2)ins
  def insertionsort(arr):
     counter=0
     if arr==sorted(arr):
