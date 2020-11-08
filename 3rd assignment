@@ -1,26 +1,30 @@
-1) fibonacci
+1)fib
 def fib(n):
     prev,nex=1,1
     for i in range(n-1):
         prev,nex=prev,prev+nex
     return nex
  
- 2)ins
- def insertionsort(arr):
+2)ins
+file = open('rosalind_ins.txt')
+lines = file.readlines()
+n = int(lines[0])
+l1 = list(map(int, lines[1].split()))
+def ins(l1):
     counter=0
-    if arr==sorted(arr):
+    if l1==sorted(l1):
         return counter
     else:
-        for i in range(1,len(arr)):
-            x=arr[i]
+        for i in range(1,len(l1)):
+            x=l1[i]
             for j in range(i):
-                if arr[j]>x:
-                    (arr[i],arr[j])=(arr[j],arr[i])
+                if l1[j]>x:
+                    (l1[i],l1[j])=(l1[j],l1[i])
                     counter+=1
         
         return counter
+print (ins(l1))
         
- print (insertionsort(arr))       
 
 3)maj
 file = open('rosalind_maj.txt')
@@ -38,17 +42,44 @@ for i in range(1, n[0]+1):
     if sentinella==False:
         print(-1,end=' ')
            
-  4)bins
+ 4)bins
 file = open('rosalind_bins.txt')
 lines = file.readlines()
 n = int(lines[0])
 m = int(lines[1])
-l1 = list(map(int, lines[2].split()))
-l2 = list(map(int, lines[3].split()))
-for i in l2:
-    if i in l1:
-        print(l1.index(i)+1,end=' ')
+lst1 = list(map(int, lines[2].split()))
+lst2 = list(map(int, lines[3].split()))
+for i in lst2:
+    if i in lst1:
+        print(lst1.index(i)+1,end=' ')
     else:
         print(-1,end=' ')
         
-    5)
+ 5)inv
+    enanched merge sort
+    
+6)mer
+file = open('rosalind_mer.txt')
+lines = file.readlines()
+n = int(lines[0])
+lst1 = list(map(int, lines[1].split()))
+m=int(lines[2])
+lst2 = list(map(int, lines[3].split()))
+a=sorted(lst1+lst2)
+for i in a:
+    print(i,end=' ')
+
+7)ms
+file = open('rosalind_ms.txt')
+lines = file.readlines()
+n = int(lines[0])
+lst = list(map(int, lines[1].split()))
+for i in sorted(lst):
+    print(i,end=' ')
+   
+ 8)FORSE MED
+file=open("rosalind_med.txt")
+lines = file.readlines()
+k=int(lines[2])
+lst=sorted(list(map(int, lines[1].split())))
+print(lst[k-1])
