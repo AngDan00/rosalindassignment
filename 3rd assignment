@@ -83,3 +83,29 @@ lines = file.readlines()
 k=int(lines[2])
 lst=sorted(list(map(int, lines[1].split())))
 print(lst[k-1])
+
+9)2sum
+import collections
+file = open('rosalin.txt')
+lines = file.readlines()
+fline = list(map(int, lines[0].split()))
+k=fline[0]
+m=int(fline[1])
+for i in range(1, k+1):
+    d={}
+    lst = list(map(int, lines[i].split()))
+    sentinella=False
+    for j in range(len(lst)):
+        if -lst[j] in d.keys() and abs(lst[j])<=m:
+            print (d.get(-lst[j])+1,(int(j)+1))
+            sentinella=True
+    
+            break  
+        
+        else:
+            d[lst[j]] = j
+
+    if sentinella==False:
+        print(-1)
+        
+     10)
