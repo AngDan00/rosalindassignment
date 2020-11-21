@@ -51,8 +51,21 @@ for i in lst2:
     else:
         print(-1,end=' ')
         
- 5)inv
-    enanched merge sort
+5)inv
+file=open('rosalind_inv.txt')
+n = file.readline().split(' ')
+m = file.read().split(' ') 
+
+arr = [int(i) for i in m]
+sortarr = sorted(arr)
+counter = 0
+while len(arr) > 0:
+    b = sortarr.index(arr[0])
+    counter += b
+    sortarr.pop(sortarr.index(arr[0]))
+    arr.pop(0)
+
+print (counter)
     
 6)mer
 file = open('rosalind_mer.txt')
@@ -73,7 +86,7 @@ lst = list(map(int, lines[1].split()))
 for i in sorted(lst):
     print(i,end=' ')
    
- 8)med
+8)med
 file=open("rosalind_med.txt")
 lines = file.readlines()
 k=int(lines[2])
@@ -121,10 +134,10 @@ for x in arr[1:]:
         arr2.append(x)
 print(*arr1+[i]+arr2)
     
- 11)3sum
+11)3sum
  
  
- 12)par3
+12)par3
 file=open('rosalind_par3.txt')
 line=file.readlines()
 n=int(line[0])
