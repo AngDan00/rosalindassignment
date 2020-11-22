@@ -1,9 +1,13 @@
 1)fib
+file = open('rosalind_fibo.txt')
+lines = file.readlines()
+n = int(lines[0])
 def fib(n):
     prev,nex=1,1
     for i in range(n-1):
-        prev,nex=prev,prev+nex
+        nex,prev=prev,prev+nex
     return nex
+print(fib(n))
  
 2)ins
 file = open('rosalind_ins.txt')
@@ -53,19 +57,16 @@ for i in lst2:
         
 5)inv
 file=open('rosalind_inv.txt')
-n = file.readline().split(' ')
-m = file.read().split(' ') 
-
-arr = [int(i) for i in m]
+l = file.readlines()
+arr=list(map(int.l[1].split())
 sortarr = sorted(arr)
-counter = 0
+switches = 0
 while len(arr) > 0:
-    b = sortarr.index(arr[0])
-    counter += b
+    positionfirst = sortarr.index(arr[0])
+    switches += positionfirst
     sortarr.pop(sortarr.index(arr[0]))
     arr.pop(0)
-
-print (counter)
+print (switches)
     
 6)mer
 file = open('rosalind_mer.txt')
@@ -167,26 +168,21 @@ l = list(map(int, lines[0].split()))
 k,n=int(l[0]),int(l[1])
 for i in range(1, k+1):
     arr = list(map(int, lines[i].split()))
-    #Create the empry dictionary  
-    sentinella=False
-    #Scorro in modo da considerare tutte le possibili coppie
+    sentinella=-1
     for j in range(n):
         dict_sol={} 
-        # in this dictionary im going to insert c is the key because c = (-a-b) and 
-        #as the value im going to insert the index of b
-        
         a=-arr[j]
-        for f in range(j+1,n):         
+        for f in range(j+1,n): 
             if arr[f] in dict_sol:
                 b,c=dict_sol.get(arr[f])+1,f+1
-                solution=True
+                sentinella=-1
                 break
             else:
                 dict_sol[a-arr[f]]=f
-        if sentinella:#Per uscire dopo aver trovato la prima soluzione
+        if sentinella=0:
             break
 
-    if not sentinella:
+    if sentinella==-1:
         print("-1") 
     else:
         print("{} {} {} ".format(j+1,b,c))
