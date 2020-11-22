@@ -58,7 +58,7 @@ for i in lst2:
 5)inv
 file=open('rosalind_inv.txt')
 l = file.readlines()
-arr=list(map(int.l[1].split())
+arr=list(map(int,l[1].split()))
 sortarr = sorted(arr)
 switches = 0
 while len(arr) > 0:
@@ -175,11 +175,11 @@ for i in range(1, k+1):
         for f in range(j+1,n): 
             if arr[f] in dict_sol:
                 b,c=dict_sol.get(arr[f])+1,f+1
-                sentinella=-1
+                sentinella=0
                 break
             else:
                 dict_sol[a-arr[f]]=f
-        if sentinella=0:
+        if sentinella==0:
             break
 
     if sentinella==-1:
