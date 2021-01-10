@@ -135,33 +135,24 @@ for x in arr[1:]:
         arr2.append(x)
 print(*arr1+[i]+arr2)
     
-11)3sum
-def two_sum(a, target2=0):
-    tmp_dict = {}
-    for i in range(len(a)):
-        if a[i] in tmp_dict:
-            return (tmp_dict[a[i]]+1, i+1)
-        else:
-            tmp_dict[target2-a[i]] = i
-    return -1
+11)par3
+file = open("rosalind_par3.txt")
+line = file.readline()
+arr = list(map(int, file.readline().split()))
+n = arr[0]
+arr1 = []
+arr2 = []
+arr3 = []
+for i in arr:
+    if i < n:
+        arr1.append(i)
+    elif i == n :
+        arr2.append(i)
+    elif i > n:
+        arr3.append(i)
+print(arr1 + arr2 + arr3)
 
-def three_sum(a, target3=0):
-    for i in range(len(a)):
-        res = two_sum(a[i+1:], target2=target3-a[i])
-        if res != -1:
-            print(i+1, i+1+res[0], i+1+res[1])
-            return (i+1, i+1+res[0], i+1+res[1])
-    print(-1)
-    return -1
-
-
-with open("rosalind_3sum.txt", "r") as f:
-    k,n = map(int, f.readline().strip().split())
-    A = [[int(i) for i in line.strip().split()] for line in f]
-    for i in range(k):
-        r = three_sum(A[i]) 
- 
-12)par3
+12)3sum
 file=open("rosalind_3sum.txt",'r')
 lines = file.readlines()
 l = list(map(int, lines[0].split()))
