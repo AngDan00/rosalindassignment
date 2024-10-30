@@ -1,0 +1,255 @@
+1)dna
+from collections import Counter
+file=open("rosalind_dna.txt")
+line=file.readlines()
+dna=sorted(list(map(str,line[0].strip())))
+dna=Counter(dna)
+for i in dna.values():
+    print(i,end=' ')
+    
+2)rna
+file=open("rosalind_rna.txt")
+line=file.readlines()
+print(str(line[0]).replace('T','U'))
+
+3)revc
+complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A'} 
+file=open("rosalind_revc.txt")
+line=file.readlines()
+rna=list(map(str,line[0].strip()))[::-1]
+rev=[complement[i] for i in rna]
+for i in rev:
+    print(i,end='')
+
+4)gc
+from collections import Counter
+from Bio import SeqIO
+lst=[]
+d={}
+with open("rosalind_gc.txt", "r") as handle:
+    for seq in SeqIO.parse(handle, "fasta"):
+        id=seq.id
+        seq=seq.seq
+        dseq=Counter(seq)
+        gc=(dseq.get('G')+dseq.get('C'))/len(seq)*100
+        lst.append(gc)
+        maxgc=max(lst)
+        d[gc]=id
+print(d.get(maxgc))
+print(max(d.keys()))
+
+5)subs
+file=open("rosalind_subs.txt")
+line=file.readlines()
+string=str(line[0].strip())
+sub_string=str(line[1].strip())
+for i in range(len(string)):
+    if string[i:].startswith(sub_string):
+        print(i+1,end=' ')
+6) cons
+import numpy as np
+from Bio import SeqIO
+lst=[]
+cons=[]
+for sequ in SeqIO.parse("rosalind_cons.txt", "fasta"):
+    lst.append((sequ.seq))
+mtx=np.array(lst)
+mtx=mtx.transpose()
+A,C,G,T=[],[],[],[]
+for i in mtx:
+    A.append(list(i).count('A'))
+    C.append(list(i).count('C'))
+    G.append(list(i).count('G'))
+    T.append(list(i).count('T'))
+profile=[]
+profile.append(A)
+profile.append(C)
+profile.append(G)
+profile.append(T)
+transposeprofile=np.array(profile).transpose()
+cons = []
+for m in range(0,len(profile[0])):
+    p = list(transposeprofile[m])
+    if p.index(max(p)) == 0:
+        cons.append('A')
+    elif p.index(max(p)) == 1:
+        cons.append('C')
+    elif p.index(max(p)) == 2:
+        cons.append('G')
+    elif p.index(max(p)) == 3:
+        cons.append('T')
+print(''.join(cons))
+print('A:',*A)
+print('C:',*C)
+print('G:',*G)
+print('T:',*T)
+
+
+7)hamm
+file=open("rosalind_hamm.txt")
+line=file.readlines()
+string1=str(line[0].strip())
+string2=str(line[1].strip())
+mis = 0
+L = len(string1)
+for i in range(L):
+    if len(string1)==len(string2):
+        if string1[i] != string2[i]:
+            mis += 1
+print(mis)
+
+8)lcsm
+from Bio import SeqIO
+lst=[]
+with open("rosalind_lcsm.txt", "r") as handle:
+    for seq in SeqIO.parse(handle, "fasta"):
+        seq=str(seq.seq)
+        lst.append(seq)
+    motifs=''
+    sorted(lst, key=len)
+    shortseq=lst[0]
+    compseq=lst[1:]
+    for i in range(len(shortseq)):
+        for j in range(i,len(shortseq)):
+            presente=False
+            subs=shortseq[i:j+1]
+            for sequences in compseq:
+                if subs in sequences:
+                    presente=True
+                else:
+                    presente=False
+                    break
+            if presente and len(subs)>len(motifs):
+                 motifs=subs
+    print(motifs)
+ 
+9)revp
+import Bio.Seq as bs
+with open("rosalind_revp.txt", "r") as Fastaseq:
+    sequence=bs.Seq("".join(Fastaseq.read().strip().split("\n")[1:]).strip())
+    
+for i in range(len(sequence)):
+    for j in range(4,13):
+        if i+j<=len(sequence) and sequence[i:i+j]==bs.reverse_complement(sequence[i:i+j]):
+            print(i+1,j)
+
+10)fib
+file = open('rosalind_fib.txt', 'r')
+line = file.readlines()
+l = line[0].split()
+n, k = int(l[0]), int(l[1])
+p, c = 1,1
+for x in range(n-1):
+    c, p = p, p+(c*k)
+print(c)
+
+prot)
+file=open("rosalind_prot.txt")
+line=file.readlines()
+seq=str(line[0].strip())
+def translate(seq): 
+    table={"UUU":"F", "UUC":"F", "UUA":"L", "UUG":"L",
+       "UCU":"S", "UCC":"S", "UCA":"S", "UCG":"S",
+       "UAU":"Y", "UAC":"Y", "UAA":"STOP", "UAG":"STOP",
+       "UGU":"C", "UGC":"C", "UGA":"STOP", "UGG":"W",
+       "CUU":"L", "CUC":"L", "CUA":"L", "CUG":"L",
+       "CCU":"P", "CCC":"P", "CCA":"P", "CCG":"P",
+       "CAU":"H", "CAC":"H", "CAA":"Q", "CAG":"Q",
+       "CGU":"R", "CGC":"R", "CGA":"R", "CGG":"R",
+       "AUU":"I", "AUC":"I", "AUA":"I", "AUG":"M",
+       "ACU":"T", "ACC":"T", "ACA":"T", "ACG":"T",
+       "AAU":"N", "AAC":"N", "AAA":"K", "AAG":"K",
+       "AGU":"S", "AGC":"S", "AGA":"R", "AGG":"R",
+       "GUU":"V", "GUC":"V", "GUA":"V", "GUG":"V",
+       "GCU":"A", "GCC":"A", "GCA":"A", "GCG":"A",
+       "GAU":"D", "GAC":"D", "GAA":"E", "GAG":"E",
+       "GGU":"G", "GGC":"G", "GGA":"G", "GGG":"G",}
+    protein ="" 
+    if len(seq)%3 == 0: 
+        for i in range(0, len(seq), 3): 
+            codon = seq[i:i + 3] 
+            if table[codon] != "STOP":
+                protein+= table[codon] 
+    return protein 
+print(translate(seq))
+
+11)splc
+from Bio import SeqIO
+lst=[]
+with open("rosalind_splc.txt", "r") as handle:
+    for seq in SeqIO.parse(handle, "fasta"):
+        id=seq.id
+        sequ=str(seq.seq.transcribe())
+        lst.append(sequ)
+    dna=lst[0]
+    exo=lst[1:]
+    for i in range(len(exo)):
+        dna=dna.replace(exo[i],'')
+    
+    def translate(dna): 
+        table={"UUU":"F", "UUC":"F", "UUA":"L", "UUG":"L",
+       "UCU":"S", "UCC":"S", "UCA":"S", "UCG":"S",
+       "UAU":"Y", "UAC":"Y", "UAA":"STOP", "UAG":"STOP",
+       "UGU":"C", "UGC":"C", "UGA":"STOP", "UGG":"W",
+       "CUU":"L", "CUC":"L", "CUA":"L", "CUG":"L",
+       "CCU":"P", "CCC":"P", "CCA":"P", "CCG":"P",
+       "CAU":"H", "CAC":"H", "CAA":"Q", "CAG":"Q",
+       "CGU":"R", "CGC":"R", "CGA":"R", "CGG":"R",
+       "AUU":"I", "AUC":"I", "AUA":"I", "AUG":"M",
+       "ACU":"T", "ACC":"T", "ACA":"T", "ACG":"T",
+       "AAU":"N", "AAC":"N", "AAA":"K", "AAG":"K",
+       "AGU":"S", "AGC":"S", "AGA":"R", "AGG":"R",
+       "GUU":"V", "GUC":"V", "GUA":"V", "GUG":"V",
+       "GCU":"A", "GCC":"A", "GCA":"A", "GCG":"A",
+       "GAU":"D", "GAC":"D", "GAA":"E", "GAG":"E",
+       "GGU":"G", "GGC":"G", "GGA":"G", "GGG":"G"}
+        protein ="" 
+        if len(dna)%3 == 0: 
+            for i in range(0, len(dna), 3): 
+                codon = dna[i:i + 3] 
+                if table[codon] != "STOP":
+                    protein+= table[codon] 
+        return protein 
+    print(translate(dna))
+    
+12)perm
+from itertools import permutations
+import math
+file=open('rosalind_perm.txt')
+line=file.readlines()
+n=int(line[0])
+lst=[]
+i=0
+a=0
+print(math.factorial(n))
+while i<n:
+    i+=1
+    lst.append(i)
+perm=permutations(lst)
+for i in perm:
+    a=a+1
+    print(*i)
+    
+ 13)lexf
+from itertools import product
+file=open("rosalind_lexf.txt")
+line=file.readlines()
+stuff=str(line[0].strip())
+stuff=stuff.replace(' ','')
+L=int(line[1])
+for perm in product(stuff, repeat=L): 
+    print("".join(perm))
+    
+ 14)lgis
+ with open('rosalind_lgis.txt', 'r') as f:
+    file = f.readlines()
+    n = int(file[0])
+    permlist = list(map(int, file[1].split()))
+    incr = []
+    decr = []
+    for (i,z) in enumerate(permlist):
+        incr.append(max([incr[j] for (j, y) in enumerate(permlist[:i]) if y < z] or [[]], key=len) + [z])
+    for (i,z) in enumerate(permlist):
+        decr.append(max([decr[j] for (j, y) in enumerate(permlist[:i]) if y > z] or [[]], key=len) + [z])
+    print(*max(incr, key=len))
+    print(*max(decr, key=len))
